@@ -1,0 +1,3 @@
+C:/sca/Algorithm testing/cwork/cmake-build-debug/CMakeFiles/cwork.dir
+C:/sca/Algorithm testing/cwork/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/sca/Algorithm testing/cwork/cmake-build-debug/CMakeFiles/rebuild_cache.dir

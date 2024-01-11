@@ -1,0 +1,17 @@
+{
+    "name": "phptest/test",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Phptest\\Test\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "test"
+        }
+    ],
+    "require": {
+        "google/protobuf": "=3.6.1"
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "shrinkwrap",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {
+    "": {
+      "dependencies": {
+        "sqliter": "^1.0.1"
+      }
+    },
+    "node_modules/sqliter": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/sqliter/-/sqliter-1.0.1.tgz",
+      "integrity": "sha512-5x5z80DyZ7YXvGPv66a6S7/sfj672+MYVLAXv5Jp1BK6hYkbEYF775HISrQJUY6ZpMhaTfCuCHWTZyYTwvBihg=="
+    }
+  },
+  "dependencies": {
+    "sqliter": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/sqliter/-/sqliter-1.0.1.tgz",
+      "integrity": "sha512-5x5z80DyZ7YXvGPv66a6S7/sfj672+MYVLAXv5Jp1BK6hYkbEYF775HISrQJUY6ZpMhaTfCuCHWTZyYTwvBihg=="
+    }
+  }
+}

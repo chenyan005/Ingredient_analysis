@@ -1,0 +1,29 @@
+PODS:
+  - Highlightr (2.1.0)
+  - RxAtomic (4.4.2)
+  - RxCocoa (4.4.2):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxSwift (4.4.2):
+    - RxAtomic (>= 4.4.2, ~> 4.4)
+
+DEPENDENCIES:
+  - Highlightr (= 2.1.0)
+  - RxCocoa (= 4.4.2)
+  - RxSwift (= 4.4.2)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Highlightr
+    - RxAtomic
+    - RxCocoa
+    - RxSwift
+
+SPEC CHECKSUMS:
+  Highlightr: 595f3e100737c8de41113385da8bd0b5b65212c6
+  RxAtomic: d00e97c10db88c6f08540e0bf2752fc5a2404167
+  RxCocoa: 477990dc3b4c3ff55fb0ac77e1cc06244e0aaec8
+  RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
+
+PODFILE CHECKSUM: f9e4eaf4965ce600516e9b1dd618fb323a7e1bf0
+
+COCOAPODS: 1.6.1

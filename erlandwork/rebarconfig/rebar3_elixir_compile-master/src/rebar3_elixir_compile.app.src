@@ -1,0 +1,18 @@
+{application, rebar3_elixir_compile,
+ [{description, "A rebar3 elixir compiler plugin"},
+  {vsn, "1.0.0"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib,
+    crypto,
+    elixir,
+    hex_core
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, ["Sushruth Sivaramakrishnan"]},
+  {licenses, ["Apache"]},
+  {links, [{"Github", "https://github.com/barrel-db/rebar3_elixir"}]}
+ ]}.

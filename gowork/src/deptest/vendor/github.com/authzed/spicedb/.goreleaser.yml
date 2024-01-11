@@ -1,0 +1,106 @@
+---
+builds:
+  - main: "./cmd/spicedb"
+    env:
+      - "CGO_ENABLED=0"
+    goos:
+      - "linux"
+      - "windows"
+      - "darwin"
+    goarch:
+      - "amd64"
+      - "arm64"
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    ldflags:
+      - "-s -w"
+      - "-X {{ .ModulePath }}/pkg/cmd/version.Version={{ .Version }}"
+nfpms:
+  - vendor: "authzed inc."
+    homepage: "https://spicedb.io"
+    maintainer: "authzed <support@authzed.com>"
+    description: "SpiceDB is a Zanzibar-inspired database that stores, computes, and validates application permissions."
+    license: "Apache 2.0"
+    epoch: 0
+    formats:
+      - "apk"
+      - "deb"
+      - "rpm"
+brews:
+  - tap:
+      owner: "authzed"
+      name: "homebrew-tap"
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    url_template: "https://github.com/authzed/spicedb/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    download_strategy: "CurlDownloadStrategy"
+    commit_author:
+      name: "authzedbot"
+      email: "infrastructure@authzed.com"
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    homepage: "https://authzed.com/"
+    description: "SpiceDB is a Zanzibar-inspired database that stores, computes, and validates application permissions."
+    license: "Apache-2.0"
+    folder: "Formula"
+    custom_block: |
+      head "https://github.com/authzed/spicedb.git", :branch => "main"
+    dependencies:
+      - name: "go"
+        type: "build"
+    test: |
+      system "#{bin}/spicedb version"
+    install: |
+      if !File.exists? "spicedb"
+        system "go build --ldflags \"-s -w -X github.com/authzed/spicedb/pkg/cmd/version.Version=$(git describe --always --abbrev=7 --dirty)\" ./cmd/spicedb"
+      end
+      bin.install "spicedb"
+      (bash_completion/"spicedb").write Utils.safe_popen_read("#{bin}/spicedb", "completion", "bash")
+      (zsh_completion/"_spicedb").write Utils.safe_popen_read("#{bin}/spicedb", "completion", "zsh")
+      (fish_completion/"spicedb.fish").write Utils.safe_popen_read("#{bin}/spicedb", "completion", "fish")
+dockers:
+  - image_templates:
+      - &amd_image "quay.io/authzed/spicedb:v{{ .Version }}-amd64"
+      - &amd_image_gh "ghcr.io/authzed/spicedb:v{{ .Version }}-amd64"
+    dockerfile: &dockerfile "Dockerfile.release"
+    goos: "linux"
+    goarch: "amd64"
+    use: "buildx"
+    build_flag_templates:
+      - "--platform=linux/amd64"
+  - image_templates:
+      - &arm_image "quay.io/authzed/spicedb:v{{ .Version }}-arm64"
+      - &arm_image_gh "ghcr.io/authzed/spicedb:v{{ .Version }}-arm64"
+    dockerfile: *dockerfile
+    goos: "linux"
+    goarch: "arm64"
+    use: "buildx"
+    build_flag_templates:
+      - "--platform=linux/arm64"
+docker_manifests:
+  - name_template: "quay.io/authzed/spicedb:v{{ .Version }}"
+    image_templates:
+      - *amd_image
+      - *arm_image
+  - name_template: "quay.io/authzed/spicedb:latest"
+    image_templates:
+      - *amd_image
+      - *arm_image
+  - name_template: "ghcr.io/authzed/spicedb:v{{ .Version }}"
+    image_templates:
+      - *amd_image_gh
+      - *arm_image_gh
+  - name_template: "ghcr.io/authzed/spicedb:latest"
+    image_templates:
+      - *amd_image_gh
+      - *arm_image_gh
+checksum:
+  name_template: "checksums.txt"
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  use: "github-native"
+  sort: "asc"
+release:
+  draft: true
+  prerelease: "auto"
+  footer: |
+    ## Docker Images
+    This release is available at `quay.io/authzed/spicedb:v{{ .Version }}` and `ghcr.io/authzed/spicedb:v{{ .Version }}`
