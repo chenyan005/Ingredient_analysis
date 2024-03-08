@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 tar = "=0.3.1"
+deno="1.9.0"
